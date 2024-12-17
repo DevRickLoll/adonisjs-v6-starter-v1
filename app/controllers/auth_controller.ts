@@ -15,11 +15,21 @@ export default class AuthController {
                 const user = await User.query()
                     .where('id', Number(token.tokenableId))
                     .firstOrFail()
+                const serializeData = user.serialize({
+                    fields: ['id', 'username'],
+
+                })
                 return response.ok(
                     {
                         status: 'success',
                         message: 'ลงชื่อเข้าสู่ระบบสำเร็จ',
-                        data: user,
+                        data: {
+                            ...serializeData,
+                            token: {
+                                accessToken: token.value!.release(),
+                                expiresIn: token.expiresAt,
+                            }
+                        },
                     },
                 )
             }

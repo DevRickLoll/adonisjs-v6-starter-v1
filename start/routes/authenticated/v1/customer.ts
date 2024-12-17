@@ -1,6 +1,7 @@
 import router from '@adonisjs/core/services/router'
 import CustomersController from '#controllers/customers_controller'
 import { CONTANTS } from '#config/contants'
+import {middleware} from "#start/kernel";
 
 const baseRoute = '/customer'
 router
@@ -12,5 +13,5 @@ router
         router.delete(`${baseRoute}/:id`, [CustomersController, 'destroy'])
     })
     .prefix(CONTANTS.API.V1)
-    .use([])
+    .use([middleware.auth()])
     .where('id', /^[0-9]+$/)

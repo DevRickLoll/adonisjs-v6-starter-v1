@@ -10,7 +10,7 @@
 import router from '@adonisjs/core/services/router'
 import { CONTANTS } from '#config/contants'
 import AuthController from '#controllers/auth_controller'
-
+import '#start/routes/authenticated/v1/customer'
 
 router
     .group(() => {
